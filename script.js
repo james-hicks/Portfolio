@@ -74,6 +74,36 @@ function renderProjectGrids() {
   const jam = PROJECTS.filter(p => p.category === "game-jam");
   renderGridInto("project-grid-personal", personal);
   renderGridInto("project-grid-jam", jam);
+  const countPersonal = document.getElementById("count-personal");
+  const countJam = document.getElementById("count-jam");
+  if (countPersonal) countPersonal.textContent = `(${personal.length})`;
+  if (countJam) countJam.textContent = `(${jam.length})`;
+}
+
+function setupProjectTabs() {
+  const tabs = document.querySelectorAll(".tab-btn");
+  const band = document.getElementById("project-band");
+  const panels = {
+    personal: document.getElementById("project-grid-personal"),
+    "game-jam": document.getElementById("project-grid-jam")
+  };
+  if (!tabs.length || !band) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const category = tab.dataset.category;
+      tabs.forEach(t => {
+        const isActive = t === tab;
+        t.classList.toggle("active", isActive);
+        t.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+      Object.entries(panels).forEach(([key, panel]) => {
+        if (panel) panel.hidden = key !== category;
+      });
+      band.classList.toggle("band-personal", category === "personal");
+      band.classList.toggle("band-jam", category === "game-jam");
+    });
+  });
 }
 
 function openModal(project) {
@@ -157,6 +187,7 @@ document.addEventListener("keydown", e => {
 });
 
 renderProjectGrids();
+setupProjectTabs();
 
 (function setupBackgroundParallax() {
   const blobs = document.querySelectorAll(".blob");
