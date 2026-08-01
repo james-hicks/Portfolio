@@ -55,6 +55,13 @@ function openModal(project) {
 
   const tools = project.tools.map(t => `<span class="tool-tag">${t}</span>`).join("");
 
+  let play = "";
+  if (project.itchEmbed) {
+    play = `<div class="modal-play-embed"><iframe src="${project.itchEmbed}" title="Play ${project.title} on itch.io" allowfullscreen></iframe></div>`;
+  } else if (project.itchUrl) {
+    play = `<a class="play-link" href="${project.itchUrl}" target="_blank" rel="noopener">Play on itch.io &rarr;</a>`;
+  }
+
   content.innerHTML = `
     <div class="modal-header-row">
       <span class="card-build" style="position:static;">build ${project.build}</span>
@@ -62,6 +69,7 @@ function openModal(project) {
     </div>
     <h2 class="modal-title" id="modal-title">${project.title}</h2>
     <p class="modal-tagline">${project.tagline}</p>
+    ${play}
 
     ${video}
 
