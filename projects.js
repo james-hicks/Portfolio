@@ -6,10 +6,15 @@
 
   id          - unique short slug, no spaces (used internally)
   title       - project name shown on the card and in the detail view
-  status      - one of: "active" | "prototype" | "concept"
+  category    - one of: "personal" | "game-jam"
+                Controls which section of the page the project appears in.
+  status      - one of: "active" | "prototype" | "concept" | "released" | "game-jam" | "industry"
                 active    = currently being worked on
-                prototype = playable / feature-complete build, not in active dev
-                concept   = early-stage / exploratory
+                prototype = playable and feature-complete, not fully polished
+                concept   = early-stage, exploratory
+                released  = fully playable and released
+                game-jam  = released and completed during a game jam
+                industry  = built while working in the industry, not currently active there
   build       - a version-style label, e.g. "0.6". Purely cosmetic, use
                 whatever reflects how far along it is
   year        - e.g. "2026"
@@ -32,54 +37,46 @@
   itchEmbed   - the src URL for an itch.io embedded widget, if you want the
                 game actually playable inside the popup instead of just
                 linked out. On the game's itch.io dashboard page, look for
-                "Edit game" -> embed options, or use the widget generator at
-                https://itch.io/user/settings/... under your game's page ->
-                "Embed" tab, which gives you an iframe src like
-                "https://itch.io/embed-upload/123456?color=..."
+                "Edit game" -> embed options, which gives you an iframe src
+                like "https://itch.io/embed-upload/123456?color=..."
                 Only works if the game's visibility/embedding is set to
                 allow it. Leave as "" to just show the itchUrl link instead.
 
-  Order in this array = order on the page, top to bottom / left to right.
-  Drop a new object in wherever you want it to appear.
+  competition - optional. Name of the game jam or competition, e.g.
+                "GMTK Game Jam 2025". Leave as "" to skip.
+  placement   - optional. How you placed, e.g. "Top 10%", "1st place",
+                "Rank 42 of 900". Leave as "" to skip. Only shows up if
+                both competition and placement are filled in.
+
+  Order in this array = order within its category section, top to bottom /
+  left to right. Drop a new object in wherever you want it to appear.
 */
 
 const PROJECTS = [
   {
-    id: "boomeroo",
-    title: "Boomeroo",
-    status: "prototype",
-    build: "1.0",
-    year: "2025",
-    tagline: "A fast-paced action game created for GMTK Game Jam 2025.",
-    role: "Programmer and Designer",
-    tools: ["Unity", "C#"],
-    summary: "Boomeroo is an action game created during GMTK Game Jam 2025. Built around a simple gameplay idea, the project focuses on creating a fun and replayable experience within a short development timeline.",
-    youtubeId: "",
-    thumbnail: "",
-    gallery: [],
-    itchUrl: "https://leyamez.itch.io/boomeroo",
-    itchEmbed: ""
-  },
-  {
     id: "pokeprice",
     title: "PokePrice",
-    status: "prototype",
+    category: "personal",
+    status: "released",
     build: "1.0",
     year: "2025",
-    tagline: "Test your knowledge by guessing the value of Pokémon cards.",
+    tagline: "Test your knowledge by guessing the value of Pok\u00e9mon cards.",
     role: "Solo developer",
     tools: ["Unity", "C#", "API"],
-    summary: "PokePrice is a guessing game where players try to predict the value of Pokémon cards. The project explores working with external data and creating a simple but engaging gameplay loop.",
+    summary: "PokePrice is a guessing game where players try to predict the value of Pok\u00e9mon cards. The project explores working with external data and creating a simple but engaging gameplay loop.",
     youtubeId: "",
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/pokeprice",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "",
+    placement: ""
   },
   {
     id: "lumina",
     title: "Lumina",
-    status: "prototype",
+    category: "personal",
+    status: "released",
     build: "1.0",
     year: "2025",
     tagline: "Push through the darkness and find your way forward.",
@@ -90,12 +87,15 @@ const PROJECTS = [
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/lumina",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "",
+    placement: ""
   },
   {
     id: "hose-down",
     title: "Hose Down",
-    status: "prototype",
+    category: "personal",
+    status: "released",
     build: "1.0",
     year: "2025",
     tagline: "Put out forest fires and protect the town.",
@@ -106,12 +106,15 @@ const PROJECTS = [
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/hose-down",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "",
+    placement: ""
   },
   {
     id: "fork-this",
     title: "Fork This!",
-    status: "prototype",
+    category: "personal",
+    status: "released",
     build: "1.0",
     year: "2025",
     tagline: "Complete orders before time runs out.",
@@ -122,12 +125,15 @@ const PROJECTS = [
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/fork-this",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "",
+    placement: ""
   },
   {
     id: "critical-roll",
     title: "Critical Roll",
-    status: "prototype",
+    category: "personal",
+    status: "released",
     build: "1.0",
     year: "2022",
     tagline: "Join Hammond H SpellSpeaker on his adventurous D&D campaign.",
@@ -138,12 +144,15 @@ const PROJECTS = [
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/critical-roll",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "",
+    placement: ""
   },
   {
     id: "trials-of-anubis",
     title: "Trials Of Anubis",
-    status: "prototype",
+    category: "personal",
+    status: "released",
     build: "1.0",
     year: "2021",
     tagline: "Escape the tomb and overcome the Trials of Anubis.",
@@ -154,12 +163,53 @@ const PROJECTS = [
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/trials-of-anubis",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "",
+    placement: ""
+  },
+  {
+    id: "block-rush",
+    title: "Block Rush",
+    category: "personal",
+    status: "prototype",
+    build: "0.1",
+    year: "2021",
+    tagline: "A 2D platformer prototype focused on movement and challenges.",
+    role: "Programmer, Designer, and Artist",
+    tools: ["Unity", "C#", "Aseprite"],
+    summary: "Block Rush is a small 2D platforming prototype exploring player movement and level design.",
+    youtubeId: "",
+    thumbnail: "",
+    gallery: [],
+    itchUrl: "https://leyamez.itch.io/block-rush",
+    itchEmbed: "",
+    competition: "",
+    placement: ""
+  },
+  {
+    id: "boomeroo",
+    title: "Boomeroo",
+    category: "game-jam",
+    status: "game-jam",
+    build: "1.0",
+    year: "2025",
+    tagline: "A fast-paced action game created for GMTK Game Jam 2025.",
+    role: "Programmer and Designer",
+    tools: ["Unity", "C#"],
+    summary: "Boomeroo is an action game created during GMTK Game Jam 2025. Built around a simple gameplay idea, the project focuses on creating a fun and replayable experience within a short development timeline.",
+    youtubeId: "",
+    thumbnail: "",
+    gallery: [],
+    itchUrl: "https://leyamez.itch.io/boomeroo",
+    itchEmbed: "",
+    competition: "GMTK Game Jam 2025",
+    placement: ""
   },
   {
     id: "cubic-defence",
     title: "Cubic Defence",
-    status: "prototype",
+    category: "game-jam",
+    status: "game-jam",
     build: "1.0",
     year: "2022",
     tagline: "Defend your base by destroying enemy cubes.",
@@ -170,22 +220,8 @@ const PROJECTS = [
     thumbnail: "",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/cubic-defence",
-    itchEmbed: ""
-  },
-  {
-    id: "block-rush",
-    title: "Block Rush",
-    status: "prototype",
-    build: "0.1",
-    year: "2021",
-    tagline: "A 2D platformer prototype focused on movement and challenges.",
-    role: "Programmer Designer and Artist",
-    tools: ["Unity", "C#", "Aseprite"],
-    summary: "Block Rush is a small 2D platforming prototype exploring player movement and level design.",
-    youtubeId: "",
-    thumbnail: "",
-    gallery: [],
-    itchUrl: "https://leyamez.itch.io/block-rush",
-    itchEmbed: ""
+    itchEmbed: "",
+    competition: "Ludum Dare 50",
+    placement: ""
   }
 ];
