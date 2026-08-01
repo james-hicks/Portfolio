@@ -217,7 +217,7 @@ const PROJECTS = [
     tools: ["Unity", "C#"],
     summary: "Critical Roll is a platforming adventure inspired by tabletop role-playing games. Players join Hammond H SpellSpeaker on a magical journey filled with challenges and surprises.",
     youtubeId: "https://www.youtube.com/watch?v=YXMf8BrZ6H8",
-    thumbnail: "images/critical",
+    thumbnail: "images/critical.webp",
     gallery: [],
     itchUrl: "https://leyamez.itch.io/critical-roll",
     itchEmbed: "",
