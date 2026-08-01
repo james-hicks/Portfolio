@@ -1,7 +1,10 @@
 const STATUS_LABEL = {
   active: "active dev",
   prototype: "prototype",
-  concept: "concept"
+  concept: "concept",
+  released: "released",
+  "game-jam": "game jam",
+  industry: "industry"
 };
 
 function renderCard(project) {
@@ -35,10 +38,18 @@ function renderCard(project) {
   return card;
 }
 
-function renderProjectGrid() {
-  const grid = document.getElementById("project-grid");
+function renderGridInto(elementId, projects) {
+  const grid = document.getElementById(elementId);
+  if (!grid) return;
   grid.innerHTML = "";
-  PROJECTS.forEach(project => grid.appendChild(renderCard(project)));
+  projects.forEach(project => grid.appendChild(renderCard(project)));
+}
+
+function renderProjectGrids() {
+  const personal = PROJECTS.filter(p => p.category === "personal");
+  const jam = PROJECTS.filter(p => p.category === "game-jam");
+  renderGridInto("project-grid-personal", personal);
+  renderGridInto("project-grid-jam", jam);
 }
 
 function openModal(project) {
@@ -113,4 +124,4 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeModal();
 });
 
-renderProjectGrid();
+renderProjectGrids();
