@@ -218,7 +218,7 @@ a { color: inherit; }
 }
 
 .log-heading {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .log-heading h2 {
@@ -247,15 +247,16 @@ a { color: inherit; }
 .subsection-title-personal { color: var(--accent); }
 .subsection-title-jam { color: var(--coral); }
 
+.project-bands {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
 .project-band {
   border-radius: 12px;
   border: 1px solid transparent;
-  padding: 28px 28px 8px;
-  margin-bottom: 32px;
-}
-
-.project-band:last-child {
-  margin-bottom: 0;
+  padding: 22px 24px 6px;
 }
 
 .project-band.band-personal {
