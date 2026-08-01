@@ -65,7 +65,7 @@ const PROJECTS = [
     tools: ["HTML5", "JavaScript", "CSS", "GitHub Pages"],
     summary: "A Wordle-style daily guessing game where players identify a movie, anime, or game from five emoji clues, revealed one at a time with each wrong guess. Built as a single self-contained web app with three fully independent modes, each with its own curated title pool, deterministic daily rotation, win-streak tracking, and a completely distinct visual identity per category: a torn-paper movie ticket, a halftone manga panel, and a neon CRT arcade cabinet, all sharing one underlying component through CSS custom properties rather than three separate builds.",
     youtubeId: "",
-    thumbnail: "images/og-image.png",
+    thumbnail: "images/NowShowing.png",
     gallery: [],
     itchUrl: "https://james-hicks.github.io/now-showing/",
     itchEmbed: "",
