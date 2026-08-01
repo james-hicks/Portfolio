@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>James — Game Design & Development</title>
+<meta name="description" content="Game design and development portfolio — prototypes, systems, and builds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="wordmark">JAMES<span class="wordmark-dot">.</span></a>
+    <nav class="site-nav">
+      <a href="#log">projects</a>
+      <a href="#about">about</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero wrap" id="top">
+    <p class="hero-eyebrow">build log &mdash; portfolio v1.0</p>
+    <h1 class="hero-title">I design and build small games,<br>then ship the boring parts too.</h1>
+    <p class="hero-sub">Computer science student and hobbyist game developer. Mostly Unity, mostly systems &mdash; combat, movement, and the tools that let content get authored without touching code.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">engine</span>
+        <span class="meta-value">Unity / C#</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">focus</span>
+        <span class="meta-value">systems &amp; game feel</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">status</span>
+        <span class="meta-value"><span class="dot dot-active"></span>currently building</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="log-section wrap" id="log">
+    <div class="log-heading">
+      <h2>changelog</h2>
+      <p class="log-heading-sub">every project below, in order of what shipped last.</p>
+    </div>
+    <div class="project-grid" id="project-grid">
+      <!-- rendered by script.js from projects.js -->
+    </div>
+  </section>
+
+  <section class="about wrap" id="about">
+    <div class="about-grid">
+      <div>
+        <h2>about</h2>
+        <p>I'm a computer science student with a game design diploma, building games as a creative outlet alongside a CS-focused career track. I like prototyping fast, tuning until something feels right, and building the editor tools that make the next iteration faster than the last.</p>
+      </div>
+      <div class="about-stack">
+        <p class="about-stack-label">toolbox</p>
+        <ul class="stack-list">
+          <li>Unity / C#</li>
+          <li>ScriptableObject-driven architecture</li>
+          <li>Photon Fusion (networking)</li>
+          <li>Custom editor tooling</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer wrap" id="contact">
+  <div class="footer-inner">
+    <div>
+      <p class="footer-label">get in touch</p>
+      <p class="footer-copy">Open to chatting about roles, collabs, or just game design in general.</p>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:you@example.com">email</a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener">github</a>
+      <a href="https://itch.io/profile/yourusername" target="_blank" rel="noopener">itch.io</a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">linkedin</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Close project details">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="projects.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
