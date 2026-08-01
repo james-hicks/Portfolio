@@ -1,7 +1,10 @@
 const STATUS_LABEL = {
   active: "active dev",
   prototype: "prototype",
-  concept: "concept"
+  concept: "concept",
+  released: "released",
+  "game-jam": "game jam",
+  industry: "industry"
 };
 
 function renderCard(project) {
@@ -12,6 +15,13 @@ function renderCard(project) {
   const tools = project.tools
     .map(t => `<span class="tool-tag">${t}</span>`)
     .join("");
+
+  const placement = (project.competition && project.placement)
+    ? `<div class="placement-badge">
+         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M17 5h2a2 2 0 0 1 2 2v1a3 3 0 0 1-3 3M7 5H5a2 2 0 0 0-2 2v1a3 3 0 0 0 3 3"></path></svg>
+         ${project.placement}, ${project.competition}
+       </div>`
+    : "";
 
   const card = document.createElement("button");
   card.className = "project-card";
@@ -28,6 +38,7 @@ function renderCard(project) {
         <span class="status-badge status-${project.status}">${STATUS_LABEL[project.status]}</span>
       </div>
       <p class="card-tagline">${project.tagline}</p>
+      ${placement}
       <div class="card-tools">${tools}</div>
     </div>
   `;
@@ -35,10 +46,18 @@ function renderCard(project) {
   return card;
 }
 
-function renderProjectGrid() {
-  const grid = document.getElementById("project-grid");
+function renderGridInto(elementId, projects) {
+  const grid = document.getElementById(elementId);
+  if (!grid) return;
   grid.innerHTML = "";
-  PROJECTS.forEach(project => grid.appendChild(renderCard(project)));
+  projects.forEach(project => grid.appendChild(renderCard(project)));
+}
+
+function renderProjectGrids() {
+  const personal = PROJECTS.filter(p => p.category === "personal");
+  const jam = PROJECTS.filter(p => p.category === "game-jam");
+  renderGridInto("project-grid-personal", personal);
+  renderGridInto("project-grid-jam", jam);
 }
 
 function openModal(project) {
@@ -54,6 +73,13 @@ function openModal(project) {
     : `<p class="modal-gallery-placeholder">no screenshots added yet</p>`;
 
   const tools = project.tools.map(t => `<span class="tool-tag">${t}</span>`).join("");
+
+  const placementRow = (project.competition && project.placement)
+    ? `<div>
+         <p class="modal-section-label" style="margin-top:0;">result</p>
+         <p class="modal-summary" style="margin:0;">${project.placement}, ${project.competition}</p>
+       </div>`
+    : "";
 
   let play = "";
   if (project.itchEmbed) {
@@ -89,6 +115,7 @@ function openModal(project) {
         <p class="modal-section-label" style="margin-top:0;">tools</p>
         <div class="card-tools">${tools}</div>
       </div>
+      ${placementRow}
     </div>
 
     <p class="modal-section-label">screenshots</p>
@@ -113,4 +140,4 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeModal();
 });
 
-renderProjectGrid();
+renderProjectGrids();
