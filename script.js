@@ -7,6 +7,23 @@ const STATUS_LABEL = {
   industry: "industry"
 };
 
+function extractYoutubeId(input) {
+  if (!input) return "";
+  const trimmed = input.trim();
+  if (/^[a-zA-Z0-9_-]{6,20}$/.test(trimmed)) return trimmed;
+  const patterns = [
+    /youtu\.be\/([a-zA-Z0-9_-]+)/,
+    /youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]+)/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/
+  ];
+  for (const p of patterns) {
+    const m = trimmed.match(p);
+    if (m) return m[1];
+  }
+  return trimmed;
+}
+
 function renderCard(project) {
   const thumb = project.thumbnail
     ? `<img src="${project.thumbnail}" alt="${project.title} screenshot" loading="lazy">`
@@ -29,13 +46,12 @@ function renderCard(project) {
   card.setAttribute("aria-haspopup", "dialog");
   card.innerHTML = `
     <div class="card-thumb">
-      <span class="card-build">build ${project.build}</span>
+      <span class="status-badge status-badge-thumb status-${project.status}">${STATUS_LABEL[project.status]}</span>
       ${thumb}
     </div>
     <div class="card-body">
       <div class="card-top-row">
         <h3 class="card-title">${project.title}</h3>
-        <span class="status-badge status-${project.status}">${STATUS_LABEL[project.status]}</span>
       </div>
       <p class="card-tagline">${project.tagline}</p>
       ${placement}
@@ -64,8 +80,9 @@ function openModal(project) {
   const backdrop = document.getElementById("modal-backdrop");
   const content = document.getElementById("modal-content");
 
-  const video = project.youtubeId
-    ? `<div class="modal-video"><iframe src="https://www.youtube.com/embed/${project.youtubeId}" title="${project.title} demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+  const ytId = extractYoutubeId(project.youtubeId);
+  const video = ytId
+    ? `<div class="modal-video"><iframe src="https://www.youtube.com/embed/${ytId}" title="${project.title} demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
     : `<div class="modal-video"><div class="modal-video-placeholder">no video linked yet</div></div>`;
 
   const gallery = project.gallery.length
@@ -85,12 +102,11 @@ function openModal(project) {
   if (project.itchEmbed) {
     play = `<div class="modal-play-embed"><iframe src="${project.itchEmbed}" title="Play ${project.title} on itch.io" allowfullscreen></iframe></div>`;
   } else if (project.itchUrl) {
-    play = `<a class="play-link" href="${project.itchUrl}" target="_blank" rel="noopener">Play on itch.io &rarr;</a>`;
+    play = `<a class="play-link" href="${project.itchUrl}" target="_blank" rel="noopener">Check it out here &rarr;</a>`;
   }
 
   content.innerHTML = `
     <div class="modal-header-row">
-      <span class="card-build" style="position:static;">build ${project.build}</span>
       <span class="status-badge status-${project.status}">${STATUS_LABEL[project.status]}</span>
     </div>
     <h2 class="modal-title" id="modal-title">${project.title}</h2>
@@ -141,3 +157,20 @@ document.addEventListener("keydown", e => {
 });
 
 renderProjectGrids();
+
+(function setupBackgroundParallax() {
+  const blobs = document.querySelectorAll(".blob");
+  if (!blobs.length) return;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
+  const strengths = [16, -20, 24];
+  window.addEventListener("mousemove", e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    blobs.forEach((blob, i) => {
+      const s = strengths[i % strengths.length];
+      blob.style.transform = `translate(${(x * s).toFixed(1)}px, ${(y * s).toFixed(1)}px)`;
+    });
+  });
+})();
