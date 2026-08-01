@@ -124,9 +124,10 @@ a { color: inherit; }
 /* ---------- hero ---------- */
 
 .hero {
-  padding: 88px 32px 64px;
+  padding: 96px 32px 72px;
   position: relative;
   z-index: 2;
+  text-align: center;
 }
 
 .hero-title {
@@ -134,7 +135,7 @@ a { color: inherit; }
   font-weight: 700;
   font-size: clamp(32px, 5vw, 48px);
   line-height: 1.15;
-  margin: 0 0 24px;
+  margin: 0 auto 24px;
   max-width: 20ch;
 }
 
@@ -142,11 +143,12 @@ a { color: inherit; }
   font-size: 17px;
   color: var(--text-dim);
   max-width: 56ch;
-  margin: 0 0 40px;
+  margin: 0 auto 40px;
 }
 
 .hero-engines {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   padding-top: 28px;
