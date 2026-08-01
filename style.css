@@ -133,47 +133,22 @@ a { color: inherit; }
   margin: 0 0 40px;
 }
 
-.hero-meta {
+.hero-engines {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 10px;
   padding-top: 28px;
   border-top: 1px solid var(--border-soft);
 }
 
-.meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.meta-label {
+.engine-tag {
   font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-faint);
+  font-size: 12.5px;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
 }
-
-.meta-value {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 8px;
-}
-
-.dot-active { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.dot-teal { background: var(--teal); box-shadow: 0 0 0 3px var(--teal-soft); }
-.dot-violet { background: var(--violet); box-shadow: 0 0 0 3px var(--violet-soft); }
 
 /* ---------- log section ---------- */
 
@@ -363,20 +338,15 @@ a { color: inherit; }
   margin: 0 0 14px;
 }
 
-.stack-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.stack-tags {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.stack-list li {
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-soft);
+.stack-tags .tool-tag {
+  font-size: 12px;
+  padding: 5px 10px;
 }
 
 /* ---------- footer ---------- */
@@ -486,6 +456,39 @@ a { color: inherit; }
   color: var(--text-dim);
   font-size: 15px;
   margin: 4px 0 24px;
+}
+
+.play-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin: 4px 0 20px;
+}
+
+.play-link:hover { background: rgba(242, 166, 90, 0.24); }
+
+.modal-play-embed {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0e1015;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 4px 0 24px;
+  border: 1px solid var(--border);
+}
+
+.modal-play-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .modal-video {
